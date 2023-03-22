@@ -4,8 +4,18 @@
       var tiempoRestante = 60;
     
        const nombreUsuario = prompt("Por favor, ingresa tu nombre:");
-      alert("¡Bienvenido " + nombreUsuario + "!");
+          Swal.fire({
+            title: '¡Bienvenido!',
+            text: `¡Al juego del Numero Mágico ${nombreUsuario}!`,
+            icon: 'success',
+            confirmButtonText: 'JUGAR',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            stopKeydownPropagation: false
+          });
       document.getElementById("userN").innerHTML = nombreUsuario;
+
 
       document.getElementById("intento").innerHTML = intentos;
 
@@ -27,21 +37,39 @@
     }
 
   
-
       var temporizador = setInterval(function() {
         tiempoRestante--;
         document.getElementById("tiempo").innerHTML = tiempoRestante;
         if (tiempoRestante === 0) {
           clearInterval(temporizador);
-          alert("¡Se acabó el tiempo!");
-          location.reload();
+              Swal.fire({
+              icon: 'warning',
+              title: 'Se acabó el tiempo',
+              text: 'Lo siento, intentalo de nuevo.',
+              confirmButtonText: 'Jugar de nuevo',
+              allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            stopKeydownPropagation: false
+            }).then(() => location.reload());
         }
       }, 1000);
+
 
       document.getElementById("boton-adivinar").onclick = function() {
         var numeroIngresado = parseInt(document.getElementById("numero-ingresado").value);
         if (isNaN(numeroIngresado)) {
-          alert("Por favor ingrese un número válido.");
+          Swal.fire({
+            title: 'Número inválido',
+            text: 'Por favor ingrese un número válido.',
+            icon: 'info',
+            confirmButtonText: 'Continuar',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            stopKeydownPropagation: false
+
+          });
           return;
         }
         intentos++;
@@ -53,9 +81,27 @@
           document.getElementById("mensaje-felicitacion").classList.add("mensaje");
           document.getElementById("temporizador").style.display = "none";
         } else if (numeroIngresado < numeroMagico) {
-          alert("El número mágico es mayor. Intenta de nuevo.");
+           Swal.fire({
+            title: '¡Casi!',
+            text: 'El número mágico es mayor. Intenta de nuevo.',
+            icon: 'warning',
+            confirmButtonText: 'Continuar',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            stopKeydownPropagation: false
+          });
         } else {
-          alert("El número mágico es menor. Intenta de nuevo.");
+           Swal.fire({
+            title: '¡Casi!',
+            text: 'El número mágico es menor. Intenta de nuevo.',
+            icon: 'warning',
+            confirmButtonText: 'Continuar',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            stopKeydownPropagation: false
+          });
         }
         document.getElementById("numero-ingresado").value = "";
       };
